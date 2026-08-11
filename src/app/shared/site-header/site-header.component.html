@@ -1,0 +1,93 @@
+<!-- Sticky, translucent header shared across every page. -->
+<header
+  class="sticky top-0 z-50 border-b border-line bg-[color-mix(in_srgb,var(--smp-paper)_85%,transparent)] backdrop-blur"
+>
+  <nav
+    class="mx-auto flex w-full max-w-site items-center justify-between px-5 py-4 sm:px-8 lg:px-14"
+    aria-label="Primary"
+  >
+    <!-- Brand -->
+    <a
+      routerLink="/"
+      (click)="closeMenu()"
+      aria-label="Soul Mate Properties — home"
+      class="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+    >
+      <app-brand-logo variant="onLight" />
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden items-center gap-8 lg:flex">
+      @for (link of navLinks; track link.path) {
+        <li>
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="text-forest"
+            #rla="routerLinkActive"
+            [attr.aria-current]="rla.isActive ? 'page' : null"
+            class="relative rounded-sm text-sm font-medium text-ink-soft transition-colors hover:text-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
+            >{{ link.label }}
+            @if (rla.isActive) {
+              <span class="absolute -bottom-1.5 left-0 h-0.5 w-full bg-brass" aria-hidden="true"></span>
+            }
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-2">
+      <a
+        routerLink="/book-inspection"
+        (click)="closeMenu()"
+        class="hidden rounded-md bg-forest px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-forest-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:inline-block"
+        >Book an Inspection</a
+      >
+      <button
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="mobile-menu"
+        aria-label="Toggle navigation menu"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-line text-forest transition-colors hover:bg-paper-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass lg:hidden"
+      >
+        @if (menuOpen()) {
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        } @else {
+          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+        }
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile dropdown -->
+  @if (menuOpen()) {
+    <div id="mobile-menu" class="border-t border-line bg-paper lg:hidden">
+      <ul class="mx-auto flex w-full max-w-site flex-col px-5 py-2 sm:px-8">
+        @for (link of navLinks; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="text-forest"
+              (click)="closeMenu()"
+              class="block border-b border-line py-3 text-sm font-medium text-ink-soft transition-colors hover:text-forest"
+              >{{ link.label }}</a
+            >
+          </li>
+        }
+        <li class="py-3 sm:hidden">
+          <a
+            routerLink="/book-inspection"
+            (click)="closeMenu()"
+            class="block rounded-md bg-forest px-5 py-3 text-center text-sm font-semibold text-paper"
+            >Book an Inspection</a
+          >
+        </li>
+      </ul>
+    </div>
+  }
+</header>

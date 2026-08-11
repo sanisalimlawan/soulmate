@@ -1,0 +1,64 @@
+<!-- Fixed bottom-right chat launcher shared across every page. -->
+<div class="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 print:hidden">
+  <!-- Office chooser -->
+  @if (open()) {
+    <div
+      class="w-64 overflow-hidden rounded-lg border border-line bg-white shadow-[0_24px_60px_-24px_color-mix(in_srgb,var(--smp-forest)_55%,transparent)]"
+      role="menu"
+      aria-label="Choose an office to chat with on WhatsApp"
+    >
+      <div class="bg-forest px-4 py-3">
+        <p class="text-sm font-semibold text-paper">Chat with us on WhatsApp</p>
+        <p class="mt-0.5 text-xs text-[color-mix(in_srgb,var(--smp-paper)_70%,transparent)]">
+          Pick the office nearest you
+        </p>
+      </div>
+      <ul>
+        @for (office of offices; track office.id) {
+          <li>
+            <a
+              [href]="waHref(office)"
+              target="_blank"
+              rel="noopener"
+              (click)="close()"
+              role="menuitem"
+              class="flex items-center gap-3 border-b border-line px-4 py-3 transition-colors last:border-b-0 hover:bg-paper-2 focus-visible:bg-paper-2 focus-visible:outline-none"
+            >
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white"
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.05-.5.4-3.15-.66-2.65-1.06-4.3-3.77-4.43-3.94-.13-.18-1.06-1.41-1.06-2.69 0-1.28.67-1.9.91-2.17.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.58.81 2 .88 2.15.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.3.36-.42.48-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.42.28.14.44.12.61-.07.17-.18.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.32.07.11.07.63-.17 1.31Z"/>
+                </svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-sm font-semibold text-forest-ink">{{ office.label }}</span>
+                <span class="block truncate text-xs text-ink-soft">{{ office.area }}</span>
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
+  }
+
+  <!-- Launcher button -->
+  <button
+    type="button"
+    (click)="toggle()"
+    [attr.aria-expanded]="open()"
+    aria-label="Chat with us on WhatsApp"
+    class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-[0_16px_34px_-10px_color-mix(in_srgb,var(--smp-forest)_60%,transparent)] transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper motion-reduce:transition-none motion-reduce:hover:scale-100"
+  >
+    @if (open()) {
+      <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    } @else {
+      <svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true">
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.05-.5.4-3.15-.66-2.65-1.06-4.3-3.77-4.43-3.94-.13-.18-1.06-1.41-1.06-2.69 0-1.28.67-1.9.91-2.17.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.58.81 2 .88 2.15.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.3.36-.42.48-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.42.28.14.44.12.61-.07.17-.18.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.32.07.11.07.63-.17 1.31Z"/>
+      </svg>
+    }
+  </button>
+</div>

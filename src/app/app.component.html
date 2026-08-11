@@ -1,1 +1,17 @@
-<router-outlet />
+<div class="flex min-h-screen flex-col">
+  <!-- Keyboard skip link -->
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-forest focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-paper"
+    >Skip to content</a
+  >
+
+  <app-site-header />
+
+  <main id="main-content" class="flex-1">
+    <router-outlet />
+  </main>
+
+  <app-site-footer />
+  <app-whatsapp-fab />
+</div>

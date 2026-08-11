@@ -1,191 +1,77 @@
-<!-- ============================================================= -->
-<!-- Header / navigation                                           -->
-<!-- ============================================================= -->
-<header
-  class="sticky top-0 z-50 border-b border-line bg-[color-mix(in_srgb,var(--smp-paper)_85%,transparent)] backdrop-blur"
->
-  <nav
-    class="mx-auto flex w-full max-w-site items-center justify-between px-5 py-4 sm:px-8 lg:px-14"
-    aria-label="Primary"
-  >
-    <!-- Brand -->
-    <a
-      href="#"
-      class="flex items-center gap-3 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+<!-- =========================================================== -->
+<!-- Hero                                                        -->
+<!-- =========================================================== -->
+<section class="relative overflow-hidden">
+  <div class="mx-auto w-full max-w-site px-5 pt-14 sm:px-8 md:pt-20 lg:px-14">
+    <!-- Eyebrow with flanking rules -->
+    <div class="flex items-center justify-center gap-4">
+      <span class="h-px w-8 bg-[color-mix(in_srgb,var(--smp-clay)_45%,transparent)] sm:w-12" aria-hidden="true"></span>
+      <span class="text-center text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-clay"
+        >Soul Mate Properties · Kano &amp; Abuja</span
+      >
+      <span class="h-px w-8 bg-[color-mix(in_srgb,var(--smp-clay)_45%,transparent)] sm:w-12" aria-hidden="true"></span>
+    </div>
+
+    <!-- Headline -->
+    <h1
+      class="mx-auto mt-7 max-w-4xl text-center font-display text-4xl font-semibold leading-[1.08] text-forest-ink sm:text-5xl md:text-6xl lg:text-7xl"
     >
-      <span
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-forest font-display text-sm font-semibold tracking-wide text-paper"
-        aria-hidden="true"
-        >SM</span
-      >
-      <span class="font-display text-lg font-semibold text-forest-ink"
-        >Soul&nbsp;Mate <span class="italic text-brass">Properties</span></span
-      >
-    </a>
+      Every property has someone <span class="italic text-brass">it's meant for.</span>
+    </h1>
 
-    <!-- Desktop links -->
-    <ul class="hidden items-center gap-8 lg:flex">
-      @for (link of navLinks; track link.label) {
-        <li>
-          <a
-            [attr.href]="link.href"
-            class="rounded-sm text-sm font-medium text-ink-soft transition-colors hover:text-forest focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
-            >{{ link.label }}</a
+    <!-- Subhead -->
+    <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-ink-soft md:text-lg">
+      Search verified homes, land and commercial spaces for sale and rent across Kano and Abuja — and
+      let us match you to the right one.
+    </p>
+
+    <!-- Search module -->
+    <div class="mx-auto mt-10 max-w-4xl">
+      <div
+        class="overflow-hidden rounded-lg border border-line bg-white shadow-[0_24px_60px_-28px_color-mix(in_srgb,var(--smp-forest)_45%,transparent)]"
+      >
+        <!-- Tabs -->
+        <div class="flex gap-1 border-b border-line px-3 pt-3">
+          <button
+            type="button"
+            (click)="setTab('sale')"
+            [attr.aria-pressed]="activeTab() === 'sale'"
+            class="rounded-t-md px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
+            [class.bg-forest]="activeTab() === 'sale'"
+            [class.text-paper]="activeTab() === 'sale'"
+            [class.text-ink-soft]="activeTab() !== 'sale'"
+            [class.hover:text-forest]="activeTab() !== 'sale'"
           >
-        </li>
-      }
-    </ul>
-
-    <!-- Right side -->
-    <div class="flex items-center gap-2">
-      <a
-        href="#"
-        class="hidden rounded-md bg-forest px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-forest-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:inline-block"
-        >Book an Inspection</a
-      >
-      <button
-        type="button"
-        (click)="toggleMenu()"
-        [attr.aria-expanded]="menuOpen()"
-        aria-controls="mobile-menu"
-        aria-label="Toggle navigation menu"
-        class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-line text-forest transition-colors hover:bg-paper-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass lg:hidden"
-      >
-        @if (menuOpen()) {
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-          </svg>
-        } @else {
-          <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        }
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile dropdown -->
-  @if (menuOpen()) {
-    <div id="mobile-menu" class="border-t border-line bg-paper lg:hidden">
-      <ul class="mx-auto flex w-full max-w-site flex-col px-5 py-2 sm:px-8">
-        @for (link of navLinks; track link.label) {
-          <li>
-            <a
-              [attr.href]="link.href"
-              (click)="closeMenu()"
-              class="block border-b border-line py-3 text-sm font-medium text-ink-soft transition-colors hover:text-forest"
-              >{{ link.label }}</a
-            >
-          </li>
-        }
-        <li class="py-3 sm:hidden">
-          <a
-            href="#"
-            (click)="closeMenu()"
-            class="block rounded-md bg-forest px-5 py-3 text-center text-sm font-semibold text-paper"
-            >Book an Inspection</a
+            For Sale
+          </button>
+          <button
+            type="button"
+            (click)="setTab('rent')"
+            [attr.aria-pressed]="activeTab() === 'rent'"
+            class="rounded-t-md px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
+            [class.bg-forest]="activeTab() === 'rent'"
+            [class.text-paper]="activeTab() === 'rent'"
+            [class.text-ink-soft]="activeTab() !== 'rent'"
+            [class.hover:text-forest]="activeTab() !== 'rent'"
           >
-        </li>
-      </ul>
-    </div>
-  }
-</header>
+            For Rent
+          </button>
+        </div>
 
-<main>
-  <!-- =========================================================== -->
-  <!-- Hero                                                        -->
-  <!-- =========================================================== -->
-  <section class="relative overflow-hidden">
-    <div class="mx-auto w-full max-w-site px-5 pt-14 sm:px-8 md:pt-20 lg:px-14">
-      <!-- Eyebrow with flanking rules -->
-      <div class="flex items-center justify-center gap-4">
-        <span class="h-px w-8 bg-[color-mix(in_srgb,var(--smp-clay)_45%,transparent)] sm:w-12" aria-hidden="true"></span>
-        <span class="text-center text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-clay"
-          >Soul Mate Properties · Kano &amp; Abuja</span
-        >
-        <span class="h-px w-8 bg-[color-mix(in_srgb,var(--smp-clay)_45%,transparent)] sm:w-12" aria-hidden="true"></span>
-      </div>
-
-      <!-- Headline -->
-      <h1
-        class="mx-auto mt-7 max-w-4xl text-center font-display text-4xl font-semibold leading-[1.08] text-forest-ink sm:text-5xl md:text-6xl lg:text-7xl"
-      >
-        Every property has someone <span class="italic text-brass">it's meant for.</span>
-      </h1>
-
-      <!-- Subhead -->
-      <p class="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-ink-soft md:text-lg">
-        Search verified homes, land and commercial spaces for sale and rent across Kano and Abuja — and
-        let us match you to the right one.
-      </p>
-
-      <!-- Search module -->
-      <div class="mx-auto mt-10 max-w-4xl">
-        <div
-          class="overflow-hidden rounded-lg border border-line bg-white shadow-[0_24px_60px_-28px_color-mix(in_srgb,var(--smp-forest)_45%,transparent)]"
-        >
-          <!-- Tabs -->
-          <div class="flex gap-1 border-b border-line px-3 pt-3">
-            <button
-              type="button"
-              (click)="setTab('sale')"
-              [attr.aria-pressed]="activeTab() === 'sale'"
-              class="rounded-t-md px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
-              [class.bg-forest]="activeTab() === 'sale'"
-              [class.text-paper]="activeTab() === 'sale'"
-              [class.text-ink-soft]="activeTab() !== 'sale'"
-              [class.hover:text-forest]="activeTab() !== 'sale'"
+        <!-- Fields -->
+        <div class="flex flex-col md:flex-row md:items-stretch">
+          @for (field of searchFields; track field.label) {
+            <div
+              class="flex flex-1 flex-col gap-1 border-b border-line px-5 py-4 md:border-b-0 md:border-r"
             >
-              For Sale
-            </button>
-            <button
-              type="button"
-              (click)="setTab('rent')"
-              [attr.aria-pressed]="activeTab() === 'rent'"
-              class="rounded-t-md px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
-              [class.bg-forest]="activeTab() === 'rent'"
-              [class.text-paper]="activeTab() === 'rent'"
-              [class.text-ink-soft]="activeTab() !== 'rent'"
-              [class.hover:text-forest]="activeTab() !== 'rent'"
-            >
-              For Rent
-            </button>
-          </div>
-
-          <!-- Fields -->
-          <div class="flex flex-col md:flex-row md:items-stretch">
-            @for (field of searchFields; track field.label) {
-              <div
-                class="flex flex-1 flex-col gap-1 border-b border-line px-5 py-4 md:border-b-0 md:border-r"
-              >
-                <span class="text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-soft">{{
-                  field.label
-                }}</span>
-                <div class="flex items-center justify-between gap-2">
-                  <span class="text-sm font-medium text-forest-ink">{{ field.value }}</span>
-                  <svg
-                    viewBox="0 0 24 24"
-                    class="h-4 w-4 text-ink-soft"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
-                </div>
-              </div>
-            }
-            <div class="p-3 md:flex md:items-center">
-              <button
-                type="button"
-                class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brass px-6 py-3.5 text-sm font-semibold text-forest-ink transition-colors hover:bg-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-white md:h-full"
-              >
+              <span class="text-[0.66rem] font-semibold uppercase tracking-[0.14em] text-ink-soft">{{
+                field.label
+              }}</span>
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-sm font-medium text-forest-ink">{{ field.value }}</span>
                 <svg
                   viewBox="0 0 24 24"
-                  class="h-4 w-4"
+                  class="h-4 w-4 text-ink-soft"
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
@@ -193,323 +79,293 @@
                   stroke-linejoin="round"
                   aria-hidden="true"
                 >
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="M21 21l-4.3-4.3" />
+                  <path d="M6 9l6 6 6-6" />
                 </svg>
-                Find your match
-              </button>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ========================================================= -->
-    <!-- Skyline signature graphic (full-width)                    -->
-    <!-- ========================================================= -->
-    <div class="mt-12 md:mt-16">
-      <svg
-        viewBox="0 0 1200 344"
-        class="block h-auto w-full"
-        preserveAspectRatio="xMidYMax meet"
-        role="img"
-        aria-labelledby="skyline-title"
-      >
-        <title id="skyline-title">
-          Two skylines meeting at a centre line: the historic walled city of Kano on the left in clay,
-          modern Abuja with Aso Rock on the right in forest green.
-        </title>
-
-        <!-- Ground band -->
-        <rect x="0" y="300" width="1200" height="44" class="[fill:var(--smp-paper-2)]" />
-
-        <!-- ---------------- Kano (left half, clay) ---------------- -->
-        <g class="[fill:var(--smp-clay)]">
-          <!-- City wall -->
-          <rect x="0" y="252" width="560" height="48" />
-          <!-- Battlements -->
-          <rect x="6" y="240" width="30" height="12" />
-          <rect x="56" y="240" width="30" height="12" />
-          <rect x="106" y="240" width="30" height="12" />
-          <rect x="156" y="240" width="30" height="12" />
-          <rect x="206" y="240" width="30" height="12" />
-          <rect x="256" y="240" width="30" height="12" />
-          <rect x="306" y="240" width="30" height="12" />
-          <rect x="356" y="240" width="30" height="12" />
-          <rect x="406" y="240" width="30" height="12" />
-          <rect x="456" y="240" width="30" height="12" />
-          <rect x="506" y="240" width="30" height="12" />
-
-          <!-- Arched city gate -->
-          <path
-            d="M96 300 L96 150 Q168 116 240 150 L240 300 L196 300 L196 196 Q168 178 140 196 L140 300 Z"
-          />
-          <rect x="164" y="107" width="8" height="27" />
-          <circle cx="168" cy="103" r="6" />
-
-          <!-- Minaret -->
-          <rect x="262" y="120" width="20" height="180" />
-          <path d="M262 120 A10 10 0 0 1 282 120 Z" />
-          <rect x="269" y="100" width="6" height="20" />
-          <circle cx="272" cy="97" r="4" />
-
-          <!-- Large domed building -->
-          <rect x="312" y="206" width="96" height="94" />
-          <path d="M312 206 A48 48 0 0 1 408 206 Z" />
-          <rect x="356" y="150" width="8" height="18" />
-          <circle cx="360" cy="146" r="5" />
-
-          <!-- Smaller domed building -->
-          <rect x="430" y="232" width="64" height="68" />
-          <path d="M430 232 A32 32 0 0 1 494 232 Z" />
-          <rect x="459" y="196" width="6" height="14" />
-          <circle cx="462" cy="193" r="4" />
-
-          <!-- Slim tower near the centre -->
-          <rect x="512" y="188" width="30" height="112" />
-          <rect x="512" y="178" width="9" height="12" />
-          <rect x="524" y="178" width="9" height="12" />
-        </g>
-
-        <!-- ---------------- Abuja (right half, forest) ------------- -->
-        <g class="[fill:var(--smp-forest)]">
-          <!-- Towers of varying height -->
-          <rect x="628" y="150" width="52" height="150" />
-          <rect x="690" y="104" width="46" height="196" />
-          <rect x="711" y="74" width="4" height="30" />
-
-          <!-- Slender spire -->
-          <path d="M752 300 L752 96 L765 60 L778 96 L778 300 Z" />
-          <rect x="763" y="30" width="4" height="30" />
-          <circle cx="765" cy="27" r="4" />
-
-          <!-- Setback tower -->
-          <rect x="792" y="176" width="60" height="124" />
-          <rect x="806" y="150" width="34" height="26" />
-
-          <!-- Tower -->
-          <rect x="864" y="130" width="44" height="170" />
-
-          <!-- Domed civic building -->
-          <rect x="918" y="214" width="92" height="86" />
-          <path d="M918 214 A46 46 0 0 1 1010 214 Z" />
-          <rect x="960" y="176" width="8" height="16" />
-          <circle cx="964" cy="172" r="5" />
-
-          <!-- Aso Rock monolith -->
-          <path d="M1016 300 C1030 196 1064 158 1104 152 C1150 150 1178 210 1188 300 Z" />
-          <!-- Foreground blocks nested against the rock -->
-          <rect x="1030" y="252" width="40" height="48" />
-          <rect x="1120" y="242" width="46" height="58" />
-        </g>
-
-        <!-- Horizon line -->
-        <rect x="0" y="299" width="1200" height="2" class="[fill:var(--smp-brass)]" fill-opacity="0.55" />
-
-        <!-- Centre seam where the two cities meet -->
-        <line
-          x1="600"
-          y1="300"
-          x2="600"
-          y2="176"
-          class="[stroke:var(--smp-brass)]"
-          stroke-width="1.5"
-          stroke-opacity="0.5"
-        />
-        <rect x="594" y="150" width="12" height="12" transform="rotate(45 600 156)" class="[fill:var(--smp-brass)]" />
-
-        <!-- Labels -->
-        <text x="24" y="332" font-size="22" class="font-display font-medium italic [fill:var(--smp-clay)]">Kano</text>
-        <text
-          x="1176"
-          y="332"
-          text-anchor="end"
-          font-size="22"
-          class="font-display font-medium italic [fill:var(--smp-forest)]"
-        >
-          Abuja
-        </text>
-      </svg>
-    </div>
-  </section>
-
-  <!-- =========================================================== -->
-  <!-- Trust strip                                                 -->
-  <!-- =========================================================== -->
-  <section class="bg-forest text-paper">
-    <div
-      class="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 sm:px-8 lg:px-14"
-    >
-      @for (point of trustPoints; track point) {
-        <span class="flex items-center gap-2.5 text-sm">
-          <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brass" aria-hidden="true"></span>
-          <span class="text-[color-mix(in_srgb,var(--smp-paper)_92%,transparent)]">{{ point }}</span>
-        </span>
-      }
-    </div>
-  </section>
-
-  <!-- =========================================================== -->
-  <!-- Featured listings                                           -->
-  <!-- =========================================================== -->
-  <section
-    aria-labelledby="featured-title"
-    class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-24 lg:px-14"
-  >
-    <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-      <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brass">Featured</p>
-        <h2 id="featured-title" class="mt-3 font-display text-3xl font-semibold text-forest-ink md:text-4xl">
-          Listings across both cities
-        </h2>
-      </div>
-      <p class="max-w-sm text-sm leading-relaxed text-ink-soft md:text-right">
-        Sample listings shown for demonstration — live inventory will populate this section once real
-        properties are added.
-      </p>
-    </div>
-
-    <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-      @for (listing of listings; track listing.title) {
-        <article
-          class="group flex flex-col overflow-hidden rounded-lg border border-line bg-white transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_44px_-26px_color-mix(in_srgb,var(--smp-forest)_50%,transparent)] motion-reduce:transform-none motion-reduce:transition-none"
-        >
-          <!-- Media placeholder -->
-          <div class="relative aspect-[4/3] w-full" [class]="listing.media">
-            <span
-              class="absolute left-3 top-3 rounded-full bg-paper px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-forest"
-              >Sample</span
-            >
-            <span
-              class="absolute right-3 top-3 rounded-full px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em]"
-              [class]="listing.status === 'For Sale' ? 'bg-brass text-forest-ink' : 'bg-forest text-paper'"
-              >{{ listing.status }}</span
-            >
-          </div>
-
-          <!-- Body -->
-          <div class="flex flex-1 flex-col p-5">
-            <p class="font-display text-xl font-semibold text-forest-ink">{{ listing.price }}</p>
-            <p class="mt-1 text-sm text-ink">
-              {{ listing.title }} · <span class="text-ink-soft">{{ listing.location }}</span>
-            </p>
-            <div
-              class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line pt-3 text-xs text-ink-soft"
-            >
-              @for (item of listing.meta; track item; let first = $first) {
-                @if (!first) {
-                  <span class="h-1 w-1 rounded-full bg-line" aria-hidden="true"></span>
-                }
-                <span>{{ item }}</span>
-              }
-            </div>
-          </div>
-        </article>
-      }
-    </div>
-  </section>
-
-  <!-- =========================================================== -->
-  <!-- How it works                                                -->
-  <!-- =========================================================== -->
-  <section aria-labelledby="process-title" class="bg-paper-2">
-    <div class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-24 lg:px-14">
-      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brass">The process</p>
-      <h2 id="process-title" class="mt-3 font-display text-3xl font-semibold text-forest-ink md:text-4xl">
-        How the match happens
-      </h2>
-
-      <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-3">
-        @for (step of steps; track step.index) {
-          <div class="flex flex-col">
-            <span class="h-px w-10 bg-brass" aria-hidden="true"></span>
-            <span class="mt-4 font-display text-sm font-medium italic text-brass"
-              >{{ step.index }} — {{ step.eyebrow }}</span
-            >
-            <h3 class="mt-2 font-display text-xl font-semibold text-forest-ink">{{ step.title }}</h3>
-            <p class="mt-3 text-sm leading-relaxed text-ink-soft">{{ step.body }}</p>
-          </div>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================== -->
-  <!-- CTA banner                                                  -->
-  <!-- =========================================================== -->
-  <section class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-20 lg:px-14">
-    <div
-      class="flex flex-col items-start gap-8 rounded-lg bg-forest px-8 py-12 md:flex-row md:items-center md:justify-between md:px-14 md:py-14"
-    >
-      <h2 class="max-w-xl font-display text-3xl font-semibold leading-tight text-paper md:text-4xl">
-        Have a property to sell or <span class="italic text-brass-light">rent out?</span>
-      </h2>
-      <a
-        href="#"
-        class="inline-flex shrink-0 items-center justify-center rounded-md bg-brass px-7 py-4 text-sm font-semibold text-forest-ink transition-colors hover:bg-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light focus-visible:ring-offset-2 focus-visible:ring-offset-forest"
-        >List with Soul Mate Properties</a
-      >
-    </div>
-  </section>
-</main>
-
-<!-- ============================================================= -->
-<!-- Footer                                                        -->
-<!-- ============================================================= -->
-<footer class="bg-forest-ink text-paper">
-  <div class="mx-auto w-full max-w-site px-5 py-14 sm:px-8 lg:px-14">
-    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-      <!-- Brand -->
-      <div>
-        <div class="flex items-center gap-3">
-          <span
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-forest font-display text-sm font-semibold text-paper"
-            aria-hidden="true"
-            >SM</span
-          >
-          <span class="font-display text-lg font-semibold text-paper"
-            >Soul Mate <span class="italic text-brass-light">Properties</span></span
-          >
-        </div>
-        <p class="mt-4 max-w-xs text-sm leading-relaxed text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">
-          Matching people to homes, land and commercial property across Kano and Abuja.
-        </p>
-      </div>
-
-      <!-- Offices -->
-      @for (office of offices; track office.city) {
-        <div>
-          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-brass-light">{{ office.city }}</h3>
-          <p class="mt-4 text-sm font-medium text-paper">{{ office.area }}</p>
-          <p class="mt-1 text-sm leading-relaxed text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">
-            {{ office.address }}
-          </p>
-          <p class="mt-2 text-sm text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">{{ office.phone }}</p>
-        </div>
-      }
-
-      <!-- Quick links -->
-      <div>
-        <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-brass-light">Quick links</h3>
-        <ul class="mt-4 space-y-2">
-          @for (link of quickLinks; track link.label) {
-            <li>
-              <a
-                [attr.href]="link.href"
-                class="rounded-sm text-sm text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)] transition-colors hover:text-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
-                >{{ link.label }}</a
-              >
-            </li>
           }
-        </ul>
+          <div class="p-3 md:flex md:items-center">
+            <a
+              [routerLink]="activeTab() === 'rent' ? '/rent' : '/buy'"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-brass px-6 py-3.5 text-sm font-semibold text-forest-ink transition-colors hover:bg-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-white md:h-full"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="11" cy="11" r="7" />
+                <path d="M21 21l-4.3-4.3" />
+              </svg>
+              Find your match
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div
-      class="mt-12 flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--smp-paper)_18%,transparent)] pt-6 text-xs text-[color-mix(in_srgb,var(--smp-paper)_55%,transparent)] sm:flex-row sm:items-center sm:justify-between"
-    >
-      <span>© Soul Mate Properties</span>
-      <span>Prototype interface — for proposal purposes only</span>
     </div>
   </div>
-</footer>
+
+  <!-- ========================================================= -->
+  <!-- Skyline signature graphic (full-width)                    -->
+  <!-- ========================================================= -->
+  <div class="mt-12 md:mt-16">
+    <svg
+      viewBox="0 0 1200 344"
+      class="block h-auto w-full"
+      preserveAspectRatio="xMidYMax meet"
+      role="img"
+      aria-labelledby="skyline-title"
+    >
+      <title id="skyline-title">
+        Two skylines meeting at a centre line: the historic walled city of Kano on the left in clay,
+        modern Abuja with Aso Rock on the right in forest green.
+      </title>
+
+      <!-- Ground band -->
+      <rect x="0" y="300" width="1200" height="44" class="[fill:var(--smp-paper-2)]" />
+
+      <!-- ---------------- Kano (left half, clay) ---------------- -->
+      <g class="[fill:var(--smp-clay)]">
+        <!-- City wall -->
+        <rect x="0" y="252" width="560" height="48" />
+        <!-- Battlements -->
+        <rect x="6" y="240" width="30" height="12" />
+        <rect x="56" y="240" width="30" height="12" />
+        <rect x="106" y="240" width="30" height="12" />
+        <rect x="156" y="240" width="30" height="12" />
+        <rect x="206" y="240" width="30" height="12" />
+        <rect x="256" y="240" width="30" height="12" />
+        <rect x="306" y="240" width="30" height="12" />
+        <rect x="356" y="240" width="30" height="12" />
+        <rect x="406" y="240" width="30" height="12" />
+        <rect x="456" y="240" width="30" height="12" />
+        <rect x="506" y="240" width="30" height="12" />
+
+        <!-- Arched city gate -->
+        <path
+          d="M96 300 L96 150 Q168 116 240 150 L240 300 L196 300 L196 196 Q168 178 140 196 L140 300 Z"
+        />
+        <rect x="164" y="107" width="8" height="27" />
+        <circle cx="168" cy="103" r="6" />
+
+        <!-- Minaret -->
+        <rect x="262" y="120" width="20" height="180" />
+        <path d="M262 120 A10 10 0 0 1 282 120 Z" />
+        <rect x="269" y="100" width="6" height="20" />
+        <circle cx="272" cy="97" r="4" />
+
+        <!-- Large domed building -->
+        <rect x="312" y="206" width="96" height="94" />
+        <path d="M312 206 A48 48 0 0 1 408 206 Z" />
+        <rect x="356" y="150" width="8" height="18" />
+        <circle cx="360" cy="146" r="5" />
+
+        <!-- Smaller domed building -->
+        <rect x="430" y="232" width="64" height="68" />
+        <path d="M430 232 A32 32 0 0 1 494 232 Z" />
+        <rect x="459" y="196" width="6" height="14" />
+        <circle cx="462" cy="193" r="4" />
+
+        <!-- Slim tower near the centre -->
+        <rect x="512" y="188" width="30" height="112" />
+        <rect x="512" y="178" width="9" height="12" />
+        <rect x="524" y="178" width="9" height="12" />
+      </g>
+
+      <!-- ---------------- Abuja (right half, forest) ------------- -->
+      <g class="[fill:var(--smp-forest)]">
+        <!-- Towers of varying height -->
+        <rect x="628" y="150" width="52" height="150" />
+        <rect x="690" y="104" width="46" height="196" />
+        <rect x="711" y="74" width="4" height="30" />
+
+        <!-- Slender spire -->
+        <path d="M752 300 L752 96 L765 60 L778 96 L778 300 Z" />
+        <rect x="763" y="30" width="4" height="30" />
+        <circle cx="765" cy="27" r="4" />
+
+        <!-- Setback tower -->
+        <rect x="792" y="176" width="60" height="124" />
+        <rect x="806" y="150" width="34" height="26" />
+
+        <!-- Tower -->
+        <rect x="864" y="130" width="44" height="170" />
+
+        <!-- Domed civic building -->
+        <rect x="918" y="214" width="92" height="86" />
+        <path d="M918 214 A46 46 0 0 1 1010 214 Z" />
+        <rect x="960" y="176" width="8" height="16" />
+        <circle cx="964" cy="172" r="5" />
+
+        <!-- Aso Rock monolith -->
+        <path d="M1016 300 C1030 196 1064 158 1104 152 C1150 150 1178 210 1188 300 Z" />
+        <!-- Foreground blocks nested against the rock -->
+        <rect x="1030" y="252" width="40" height="48" />
+        <rect x="1120" y="242" width="46" height="58" />
+      </g>
+
+      <!-- Horizon line -->
+      <rect x="0" y="299" width="1200" height="2" class="[fill:var(--smp-brass)]" fill-opacity="0.55" />
+
+      <!-- Centre seam where the two cities meet -->
+      <line
+        x1="600"
+        y1="300"
+        x2="600"
+        y2="176"
+        class="[stroke:var(--smp-brass)]"
+        stroke-width="1.5"
+        stroke-opacity="0.5"
+      />
+      <rect x="594" y="150" width="12" height="12" transform="rotate(45 600 156)" class="[fill:var(--smp-brass)]" />
+
+      <!-- Labels -->
+      <text x="24" y="332" font-size="22" class="font-display font-medium italic [fill:var(--smp-clay)]">Kano</text>
+      <text
+        x="1176"
+        y="332"
+        text-anchor="end"
+        font-size="22"
+        class="font-display font-medium italic [fill:var(--smp-forest)]"
+      >
+        Abuja
+      </text>
+    </svg>
+  </div>
+</section>
+
+<!-- =========================================================== -->
+<!-- Trust strip                                                 -->
+<!-- =========================================================== -->
+<section class="bg-forest text-paper">
+  <div
+    class="mx-auto flex w-full max-w-site flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 sm:px-8 lg:px-14"
+  >
+    @for (point of trustPoints; track point) {
+      <span class="flex items-center gap-2.5 text-sm">
+        <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brass" aria-hidden="true"></span>
+        <span class="text-[color-mix(in_srgb,var(--smp-paper)_92%,transparent)]">{{ point }}</span>
+      </span>
+    }
+  </div>
+</section>
+
+<!-- =========================================================== -->
+<!-- Featured listings                                           -->
+<!-- =========================================================== -->
+<section
+  aria-labelledby="featured-title"
+  class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-24 lg:px-14"
+>
+  <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brass">Featured</p>
+      <h2 id="featured-title" class="mt-3 font-display text-3xl font-semibold text-forest-ink md:text-4xl">
+        Listings across both cities
+      </h2>
+    </div>
+    <p class="max-w-sm text-sm leading-relaxed text-ink-soft md:text-right">
+      Sample listings shown for demonstration — live inventory will populate this section once real
+      properties are added.
+    </p>
+  </div>
+
+  <div class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+    @for (listing of listings; track listing.title) {
+      <article
+        class="group flex flex-col overflow-hidden rounded-lg border border-line bg-white transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_22px_44px_-26px_color-mix(in_srgb,var(--smp-forest)_50%,transparent)] motion-reduce:transform-none motion-reduce:transition-none"
+      >
+        <!-- Media placeholder -->
+        <div class="relative aspect-[4/3] w-full" [class]="listing.media">
+          <span
+            class="absolute left-3 top-3 rounded-full bg-paper px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em] text-forest"
+            >Sample</span
+          >
+          <span
+            class="absolute right-3 top-3 rounded-full px-2.5 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.12em]"
+            [class]="listing.status === 'For Sale' ? 'bg-brass text-forest-ink' : 'bg-forest text-paper'"
+            >{{ listing.status }}</span
+          >
+        </div>
+
+        <!-- Body -->
+        <div class="flex flex-1 flex-col p-5">
+          <p class="font-display text-xl font-semibold text-forest-ink">{{ listing.price }}</p>
+          <p class="mt-1 text-sm text-ink">
+            {{ listing.title }} · <span class="text-ink-soft">{{ listing.location }}</span>
+          </p>
+          <div
+            class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line pt-3 text-xs text-ink-soft"
+          >
+            @for (item of listing.meta; track item; let first = $first) {
+              @if (!first) {
+                <span class="h-1 w-1 rounded-full bg-line" aria-hidden="true"></span>
+              }
+              <span>{{ item }}</span>
+            }
+          </div>
+        </div>
+      </article>
+    }
+  </div>
+
+  <div class="mt-10 flex justify-center">
+    <a
+      routerLink="/buy"
+      class="inline-flex items-center gap-2 rounded-md border border-forest px-6 py-3 text-sm font-semibold text-forest transition-colors hover:bg-forest hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+    >
+      Browse all listings
+      <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- =========================================================== -->
+<!-- How it works                                                -->
+<!-- =========================================================== -->
+<section aria-labelledby="process-title" class="bg-paper-2">
+  <div class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-24 lg:px-14">
+    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-brass">The process</p>
+    <h2 id="process-title" class="mt-3 font-display text-3xl font-semibold text-forest-ink md:text-4xl">
+      How the match happens
+    </h2>
+
+    <div class="mt-10 grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-3">
+      @for (step of steps; track step.index) {
+        <div class="flex flex-col">
+          <span class="h-px w-10 bg-brass" aria-hidden="true"></span>
+          <span class="mt-4 font-display text-sm font-medium italic text-brass"
+            >{{ step.index }} — {{ step.eyebrow }}</span
+          >
+          <h3 class="mt-2 font-display text-xl font-semibold text-forest-ink">{{ step.title }}</h3>
+          <p class="mt-3 text-sm leading-relaxed text-ink-soft">{{ step.body }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================== -->
+<!-- CTA banner                                                  -->
+<!-- =========================================================== -->
+<section class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-20 lg:px-14">
+  <div
+    class="flex flex-col items-start gap-8 rounded-lg bg-forest px-8 py-12 md:flex-row md:items-center md:justify-between md:px-14 md:py-14"
+  >
+    <h2 class="max-w-xl font-display text-3xl font-semibold leading-tight text-paper md:text-4xl">
+      Have a property to sell or <span class="italic text-brass-light">rent out?</span>
+    </h2>
+    <a
+      routerLink="/sell"
+      class="inline-flex shrink-0 items-center justify-center rounded-md bg-brass px-7 py-4 text-sm font-semibold text-forest-ink transition-colors hover:bg-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light focus-visible:ring-offset-2 focus-visible:ring-offset-forest"
+      >List with Soul Mate Properties</a
+    >
+  </div>
+</section>

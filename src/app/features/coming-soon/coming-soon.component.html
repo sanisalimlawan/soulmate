@@ -1,0 +1,53 @@
+<section class="relative overflow-hidden">
+  <div class="mx-auto w-full max-w-site px-5 py-20 sm:px-8 md:py-28 lg:px-14">
+    <div class="mx-auto max-w-2xl text-center">
+      <!-- Coming soon badge -->
+      <span
+        class="inline-flex items-center gap-2 rounded-full border border-line bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-forest"
+      >
+        <span class="h-1.5 w-1.5 rounded-full bg-brass" aria-hidden="true"></span>
+        Coming soon
+      </span>
+
+      <p class="mt-8 text-xs font-semibold uppercase tracking-[0.22em] text-clay">{{ content().eyebrow }}</p>
+      <h1 class="mt-4 font-display text-4xl font-semibold leading-[1.1] text-forest-ink md:text-5xl lg:text-6xl">
+        {{ content().title }}
+      </h1>
+      <p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-ink-soft md:text-lg">
+        {{ content().lead }}
+      </p>
+
+      <!-- Feature bullets -->
+      @if (content().bullets.length) {
+        <ul class="mx-auto mt-8 flex max-w-lg flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          @for (bullet of content().bullets; track bullet) {
+            <li class="flex items-center gap-2 text-sm text-ink">
+              <svg viewBox="0 0 24 24" class="h-4 w-4 text-brass" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              {{ bullet }}
+            </li>
+          }
+        </ul>
+      }
+
+      <!-- CTAs -->
+      <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a
+          routerLink="/book-inspection"
+          class="inline-flex w-full items-center justify-center rounded-md bg-forest px-7 py-3.5 text-sm font-semibold text-paper transition-colors hover:bg-forest-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:w-auto"
+          >Book an inspection</a
+        >
+        <a
+          routerLink="/contact"
+          class="inline-flex w-full items-center justify-center rounded-md border border-forest px-7 py-3.5 text-sm font-semibold text-forest transition-colors hover:bg-forest hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:w-auto"
+          >Talk to an agent</a
+        >
+      </div>
+
+      <p class="mt-6 text-sm text-ink-soft">
+        Or message us on WhatsApp using the button in the corner — we're here now.
+      </p>
+    </div>
+  </div>
+</section>

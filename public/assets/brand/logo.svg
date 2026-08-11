@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Soul Mate Properties">
+  <!-- PLACEHOLDER MARK — replace this file with the client's real logo (same name: logo.svg). -->
+  <!-- Brass "coin" reads on both the light header and the dark footer. -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#B98B3E"/>
+  <!-- Rooftop motif over the monogram -->
+  <path d="M16 27 L32 15 L48 27" fill="none" stroke="#0F241D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- SM monogram -->
+  <text x="32" y="46" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="600" fill="#0F241D">SM</text>
+</svg>

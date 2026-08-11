@@ -1,0 +1,89 @@
+<footer class="bg-forest-ink text-paper">
+  <div class="mx-auto w-full max-w-site px-5 py-14 sm:px-8 lg:px-14">
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Brand -->
+      <div>
+        <a
+          routerLink="/"
+          aria-label="Soul Mate Properties — home"
+          class="inline-block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+        >
+          <app-brand-logo variant="onDark" />
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">
+          Matching people to homes, land and commercial property across Kano and Abuja.
+        </p>
+        <a
+          [href]="'mailto:' + site.email"
+          class="mt-4 inline-block rounded-sm text-sm text-brass-light underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+          >{{ site.email }}</a
+        >
+      </div>
+
+      <!-- Offices -->
+      @for (office of offices; track office.id) {
+        <div>
+          <a
+            [routerLink]="cityPath(office)"
+            class="rounded-sm text-xs font-semibold uppercase tracking-[0.18em] text-brass-light transition-colors hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+            >{{ office.label }}</a
+          >
+          <p class="mt-4 text-sm font-medium text-paper">{{ office.area }}</p>
+          <p class="mt-1 text-sm leading-relaxed text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">
+            {{ office.address }}
+          </p>
+          <div class="mt-3 flex flex-col gap-1.5 text-sm">
+            <a
+              [href]="telHref(office)"
+              class="rounded-sm text-[color-mix(in_srgb,var(--smp-paper)_80%,transparent)] transition-colors hover:text-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+              >{{ office.phoneDisplay }}</a
+            >
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <a
+                [href]="waHref(office)"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 rounded-sm font-medium text-brass-light transition-colors hover:text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+              >
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.05-.5.4-3.15-.66-2.65-1.06-4.3-3.77-4.43-3.94-.13-.18-1.06-1.41-1.06-2.69 0-1.28.67-1.9.91-2.17.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.58.81 2 .88 2.15.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.3.36-.42.48-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.42.28.14.44.12.61-.07.17-.18.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.32.07.11.07.63-.17 1.31Z"/>
+                </svg>
+                WhatsApp
+              </a>
+              <a
+                [href]="mapsHref(office)"
+                target="_blank"
+                rel="noopener"
+                class="rounded-sm text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)] underline-offset-4 transition-colors hover:text-brass-light hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+                >Directions</a
+              >
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Explore -->
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-brass-light">Explore</h3>
+        <ul class="mt-4 space-y-2">
+          @for (link of exploreLinks; track link.path) {
+            <li>
+              <a
+                [routerLink]="link.path"
+                class="rounded-sm text-sm text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)] transition-colors hover:text-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+                >{{ link.label }}</a
+              >
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="mt-12 flex flex-col gap-2 border-t border-[color-mix(in_srgb,var(--smp-paper)_18%,transparent)] pt-6 text-xs text-[color-mix(in_srgb,var(--smp-paper)_55%,transparent)] sm:flex-row sm:items-center sm:justify-between"
+    >
+      <span>© {{ year }} {{ site.name }}</span>
+      <span>Prototype interface — for proposal purposes only</span>
+    </div>
+  </div>
+</footer>

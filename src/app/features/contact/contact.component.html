@@ -1,0 +1,120 @@
+<!-- =========================================================== -->
+<!-- Page hero                                                   -->
+<!-- =========================================================== -->
+<section class="border-b border-line bg-paper-2">
+  <div class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-20 lg:px-14">
+    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-clay">Contact us</p>
+    <h1 class="mt-4 max-w-3xl font-display text-4xl font-semibold leading-[1.1] text-forest-ink md:text-5xl lg:text-6xl">
+      Let's talk <span class="italic text-brass">property.</span>
+    </h1>
+    <p class="mt-6 max-w-2xl text-base leading-relaxed text-ink-soft md:text-lg">
+      Reach the office nearest you by call or WhatsApp, or send us a message below — it goes straight to
+      our team on WhatsApp with your details already filled in.
+    </p>
+  </div>
+</section>
+
+<section class="mx-auto w-full max-w-site px-5 py-16 sm:px-8 md:py-24 lg:px-14">
+  <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-14">
+    <!-- Offices + email -->
+    <div>
+      <h2 class="font-display text-2xl font-semibold text-forest-ink md:text-3xl">Our offices</h2>
+      <div class="mt-6 grid grid-cols-1 gap-6">
+        @for (office of offices; track office.id) {
+          <app-office-card [office]="office" />
+        }
+      </div>
+
+      <div class="mt-6 rounded-lg border border-line bg-paper-2 p-6">
+        <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-forest">Prefer email?</h3>
+        <a
+          [href]="'mailto:' + site.email"
+          class="mt-2 inline-block rounded-sm font-display text-lg font-medium text-forest-ink underline-offset-4 transition-colors hover:text-brass hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
+          >{{ site.email }}</a
+        >
+      </div>
+    </div>
+
+    <!-- Message form -->
+    <div>
+      <h2 class="font-display text-2xl font-semibold text-forest-ink md:text-3xl">Send a message</h2>
+      <p class="mt-2 text-sm text-ink-soft">
+        Fill this in and we'll open WhatsApp with your message ready to send.
+      </p>
+
+      <form [formGroup]="form" (ngSubmit)="send()" novalidate class="mt-6 flex flex-col gap-5">
+        <!-- Name -->
+        <div class="flex flex-col gap-1.5">
+          <label for="name" class="text-sm font-medium text-forest-ink">Your name</label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            autocomplete="name"
+            class="rounded-md border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-forest focus:ring-2 focus:ring-brass"
+          />
+          @if (submitted() && form.controls.name.invalid) {
+            <p class="text-xs font-medium text-clay">Please tell us your name.</p>
+          }
+        </div>
+
+        <!-- Phone -->
+        <div class="flex flex-col gap-1.5">
+          <label for="phone" class="text-sm font-medium text-forest-ink"
+            >Phone <span class="font-normal text-ink-soft">(optional)</span></label
+          >
+          <input
+            id="phone"
+            type="tel"
+            formControlName="phone"
+            autocomplete="tel"
+            inputmode="tel"
+            class="rounded-md border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-forest focus:ring-2 focus:ring-brass"
+          />
+        </div>
+
+        <!-- Office -->
+        <div class="flex flex-col gap-1.5">
+          <label for="office" class="text-sm font-medium text-forest-ink">Which office?</label>
+          <select
+            id="office"
+            formControlName="office"
+            class="rounded-md border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-forest focus:ring-2 focus:ring-brass"
+          >
+            @for (office of offices; track office.id) {
+              <option [value]="office.id">{{ office.label }} — {{ office.area }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Message -->
+        <div class="flex flex-col gap-1.5">
+          <label for="message" class="text-sm font-medium text-forest-ink">Message</label>
+          <textarea
+            id="message"
+            formControlName="message"
+            rows="4"
+            class="resize-y rounded-md border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition-colors focus:border-forest focus:ring-2 focus:ring-brass"
+          ></textarea>
+          @if (submitted() && form.controls.message.invalid) {
+            <p class="text-xs font-medium text-clay">Please add a short message.</p>
+          }
+        </div>
+
+        <button
+          type="submit"
+          class="inline-flex items-center justify-center gap-2 rounded-md bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.05-.5.4-3.15-.66-2.65-1.06-4.3-3.77-4.43-3.94-.13-.18-1.06-1.41-1.06-2.69 0-1.28.67-1.9.91-2.17.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.58.81 2 .88 2.15.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.3.36-.42.48-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.42.28.14.44.12.61-.07.17-.18.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.32.07.11.07.63-.17 1.31Z"/>
+          </svg>
+          Send on WhatsApp
+        </button>
+        <p class="text-xs text-ink-soft">
+          This opens WhatsApp in a new tab with your message pre-filled — nothing is sent until you press
+          send there.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
