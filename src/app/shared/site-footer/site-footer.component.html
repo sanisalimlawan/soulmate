@@ -13,11 +13,13 @@
         <p class="mt-4 max-w-xs text-sm leading-relaxed text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">
           Matching people to homes, land and commercial property across Kano and Abuja.
         </p>
-        <a
-          [href]="'mailto:' + site.email"
-          class="mt-4 inline-block rounded-sm text-sm text-brass-light underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
-          >{{ site.email }}</a
-        >
+        @if (site.email) {
+          <a
+            [href]="'mailto:' + site.email"
+            class="mt-4 inline-block rounded-sm text-sm text-brass-light underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+            >{{ site.email }}</a
+          >
+        }
       </div>
 
       <!-- Offices -->
@@ -32,11 +34,17 @@
           <p class="mt-1 text-sm leading-relaxed text-[color-mix(in_srgb,var(--smp-paper)_65%,transparent)]">
             {{ office.address }}
           </p>
+          <p class="mt-2 text-sm text-[color-mix(in_srgb,var(--smp-paper)_80%,transparent)]">
+            {{ office.manager.name }}
+            <span class="block text-xs text-[color-mix(in_srgb,var(--smp-paper)_55%,transparent)]"
+              >Managing Director</span
+            >
+          </p>
           <div class="mt-3 flex flex-col gap-1.5 text-sm">
             <a
               [href]="telHref(office)"
               class="rounded-sm text-[color-mix(in_srgb,var(--smp-paper)_80%,transparent)] transition-colors hover:text-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
-              >{{ office.phoneDisplay }}</a
+              >{{ phoneDisplay(office) }}</a
             >
             <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
               <a

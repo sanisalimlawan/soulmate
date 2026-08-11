@@ -7,9 +7,14 @@ import {
 } from '@angular/core';
 
 /**
- * Brand lockup: the logo mark (from `/assets/brand/logo.svg`) plus the
- * "Soul Mate Properties" wordmark. If the logo file is missing or fails to
- * load, it falls back to an "SM" monogram so the brand never appears broken.
+ * Brand lockup: the circular logo emblem (from `/assets/brand/logo.jpg`) plus
+ * the "Soul Mate Properties" wordmark. The supplied artwork is a detailed gold
+ * emblem on a dark coin, so it is masked into a circle (`rounded-full` +
+ * `object-cover`) — this drops the square JPG corners and reads as a clean
+ * gold-ringed badge on both the light header and the dark footer. The wordmark
+ * stays beside it because the emblem's baked-in text is illegible at this size.
+ * If the file is missing or fails to load, it falls back to an "SM" monogram so
+ * the brand never appears broken.
  *
  * Presentational only — callers wrap it in their own `routerLink` when it needs
  * to be clickable (see the header/footer).
@@ -28,12 +33,17 @@ import {
         >
       } @else {
         <img
-          src="assets/brand/logo.svg"
+          src="assets/brand/logo.jpg"
           alt=""
           aria-hidden="true"
           width="40"
           height="40"
-          class="h-10 w-10 shrink-0 object-contain"
+          class="h-10 w-10 shrink-0 rounded-full object-cover"
+          [class]="
+            variant() === 'onDark'
+              ? 'ring-1 ring-[color-mix(in_srgb,var(--smp-brass)_45%,transparent)]'
+              : 'ring-1 ring-line'
+          "
           (error)="imgFailed.set(true)"
         />
       }

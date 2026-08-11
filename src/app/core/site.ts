@@ -1,18 +1,16 @@
 /**
  * Single source of truth for site-wide content that is reused across pages:
- * company details, office locations, navigation, and the click-to-chat /
- * click-to-call / directions link builders.
+ * company details, office locations, the people you can reach, navigation, and
+ * the click-to-chat / click-to-call / directions link builders.
  *
  * This is plain typed data + pure helpers (no Angular DI) so any component can
  * import it directly. When the phase moves to real/dynamic data, this file is
  * the one place to swap.
  *
- * ── ACTION REQUIRED before going live ──────────────────────────────────────
- * The WhatsApp numbers and e-mail below are PLACEHOLDERS. Replace the digits in
- * `OFFICES[].whatsapp` / `.phoneDisplay` / `.phoneDial` and `SITE.email` with
- * the client's real details. WhatsApp numbers must be in full international
- * format with no "+", spaces or leading zero (e.g. Nigeria: 2348012345678).
- * ---------------------------------------------------------------------------
+ * Contact numbers below are the client's REAL WhatsApp-enabled lines. The only
+ * thing still outstanding before launch is `SITE.email` (see the note there) —
+ * no e-mail address was supplied, so the site currently leads with phone /
+ * WhatsApp and hides the e-mail row until one is added.
  */
 
 /** A navigable link backed by an Angular route path. */
@@ -22,7 +20,30 @@ export interface RouteLink {
   readonly path: string;
 }
 
-/** A physical office and its contact channels. */
+/**
+ * A single phone line. Every line in this file is WhatsApp-enabled, so the same
+ * number powers both the `tel:` call action and the `wa.me` chat action.
+ */
+export interface PhoneLine {
+  /** Human-readable, local format, e.g. `0803 198 5556`. */
+  readonly display: string;
+  /** For `tel:` links — international, no spaces, e.g. `+2348031985556`. */
+  readonly dial: string;
+  /** For `wa.me` links — international digits, no `+`, e.g. `2348031985556`. */
+  readonly whatsapp: string;
+}
+
+/** A named person the business can be reached through. */
+export interface Contact {
+  /** Full name, e.g. `Alh. Aliyu Yusha'u Hamisu`. */
+  readonly name: string;
+  /** Role / title, e.g. `Managing Director — Kano branch`. */
+  readonly title: string;
+  /** One or more phone lines; the first is the primary line for one-tap actions. */
+  readonly phones: readonly PhoneLine[];
+}
+
+/** A physical office, the manager who runs it, and its contact channels. */
 export interface OfficeInfo {
   readonly id: 'kano' | 'abuja';
   /** City name, e.g. `Kano`. */
@@ -33,29 +54,51 @@ export interface OfficeInfo {
   readonly area: string;
   /** Full street address on one line. */
   readonly address: string;
-  /** Human-readable phone number for display. */
-  readonly phoneDisplay: string;
-  /** Phone number for `tel:` links (international, no spaces). */
-  readonly phoneDial: string;
-  /** WhatsApp number for `wa.me` links (international digits, no "+"). */
-  readonly whatsapp: string;
+  /** The branch manager, with their WhatsApp-enabled phone line(s). */
+  readonly manager: Contact;
   /** Search string used for the Google Maps directions link. */
   readonly mapsQuery: string;
 }
+
+/**
+ * Build a WhatsApp-enabled phone line from a Nigerian local number
+ * (e.g. `"08031985556"`), producing its display, `tel:` and `wa.me` forms.
+ * Pure string work — keeps the numbers below readable and avoids transcription
+ * slips between the three formats.
+ */
+function ngPhone(local: string): PhoneLine {
+  const digits = local.replace(/\D/g, ''); // e.g. "08031985556"
+  const intl = `234${digits.replace(/^0/, '')}`; // e.g. "2348031985556"
+  const display = `${digits.slice(0, 4)} ${digits.slice(4, 7)} ${digits.slice(7)}`;
+  return { display, dial: `+${intl}`, whatsapp: intl };
+}
+
+/** Company leadership — the CEO oversees the company across both branches. */
+const CEO: Contact = {
+  name: "Alh. Aliyu Yusha'u Hamisu",
+  title: 'Chief Executive Officer',
+  phones: [ngPhone('08031985556'), ngPhone('08148700084')],
+};
 
 /** Company-level details. */
 export const SITE = {
   name: 'Soul Mate Properties',
   shortName: 'Soul Mate',
   tagline: 'Homes, land & commercial property across Kano & Abuja',
-  /** PLACEHOLDER — replace with the client's real inbox. */
-  email: 'hello@soulmateproperties.ng',
+  /**
+   * No e-mail address was supplied by the client. Left `null` on purpose so the
+   * site never shows a bouncing `mailto:` — the e-mail row is hidden wherever it
+   * appears until a real inbox is set here (e.g. `'info@soulmateproperties.ng'`).
+   */
+  email: null as string | null,
+  /** The CEO, reachable directly on WhatsApp / phone. */
+  ceo: CEO,
 } as const;
 
 /**
  * Office directory. The Abuja address was provided by the client
- * ("Wuse Zone 2, opposite GSM Village"). WhatsApp/phone numbers are
- * placeholders — see the ACTION REQUIRED note at the top of this file.
+ * ("Wuse Zone 2, opposite GSM Village"); the Kano street line is still a
+ * placeholder to confirm. Every number is a real WhatsApp-enabled line.
  */
 export const OFFICES: readonly OfficeInfo[] = [
   {
@@ -64,9 +107,11 @@ export const OFFICES: readonly OfficeInfo[] = [
     label: 'Kano office',
     area: 'Nassarawa GRA',
     address: 'Nassarawa GRA, Kano', // PLACEHOLDER street line — confirm with client.
-    phoneDisplay: '+234 800 000 0001',
-    phoneDial: '+2348000000001',
-    whatsapp: '2348000000001',
+    manager: {
+      name: "Anwar Ahmad Na'abba",
+      title: 'Managing Director — Kano branch',
+      phones: [ngPhone('08161712990'), ngPhone('08086668333')],
+    },
     mapsQuery: 'Soul Mate Properties, Nassarawa GRA, Kano, Nigeria',
   },
   {
@@ -75,9 +120,11 @@ export const OFFICES: readonly OfficeInfo[] = [
     label: 'Abuja office',
     area: 'Wuse Zone 2',
     address: 'Wuse Zone 2, opposite GSM Village, Abuja',
-    phoneDisplay: '+234 800 000 0002',
-    phoneDial: '+2348000000002',
-    whatsapp: '2348000000002',
+    manager: {
+      name: 'Alh. Ahmad Ibrahim',
+      title: 'Managing Director — Abuja branch',
+      phones: [ngPhone('08034548332'), ngPhone('08026601720')],
+    },
     mapsQuery: 'Wuse Zone 2, opposite GSM Village, Abuja, Nigeria',
   },
 ];
@@ -89,6 +136,11 @@ export function officeById(id: OfficeInfo['id']): OfficeInfo {
     throw new Error(`Unknown office id: ${id}`);
   }
   return match;
+}
+
+/** The primary (first) phone line for an office — used for one-tap actions. */
+export function officePhone(office: OfficeInfo): PhoneLine {
+  return office.manager.phones[0];
 }
 
 /** Primary navigation shown in the header. */

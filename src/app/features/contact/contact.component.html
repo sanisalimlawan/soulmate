@@ -25,14 +25,52 @@
         }
       </div>
 
-      <div class="mt-6 rounded-lg border border-line bg-paper-2 p-6">
-        <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-forest">Prefer email?</h3>
-        <a
-          [href]="'mailto:' + site.email"
-          class="mt-2 inline-block rounded-sm font-display text-lg font-medium text-forest-ink underline-offset-4 transition-colors hover:text-brass hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
-          >{{ site.email }}</a
-        >
+      <!-- Office of the CEO -->
+      <div class="mt-6 rounded-lg border border-line bg-forest p-6 sm:p-7">
+        <div class="flex items-center gap-2">
+          <span class="h-2 w-2 rounded-full bg-brass-light" aria-hidden="true"></span>
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-brass-light">
+            Office of the CEO
+          </h3>
+        </div>
+        <p class="mt-4 font-display text-xl font-semibold text-paper">{{ ceo.name }}</p>
+        <p class="mt-1 text-sm text-[color-mix(in_srgb,var(--smp-paper)_70%,transparent)]">
+          {{ ceo.title }}
+        </p>
+        <ul class="mt-4 flex flex-col gap-3">
+          @for (line of ceo.phones; track line.whatsapp) {
+            <li class="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <a
+                [href]="ceoTelHref(line)"
+                class="rounded-sm font-medium text-paper transition-colors hover:text-brass-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+                >{{ line.display }}</a
+              >
+              <a
+                [href]="ceoWaHref(line)"
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-1.5 rounded-sm text-sm font-medium text-brass-light underline-offset-4 transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass-light"
+              >
+                <svg viewBox="0 0 24 24" class="h-4 w-4" fill="currentColor" aria-hidden="true">
+                  <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.36-.5.05-.5.4-3.15-.66-2.65-1.06-4.3-3.77-4.43-3.94-.13-.18-1.06-1.41-1.06-2.69 0-1.28.67-1.9.91-2.17.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.58.81 2 .88 2.15.07.14.12.31.02.5-.09.18-.14.3-.28.46-.14.16-.3.36-.42.48-.14.14-.29.29-.12.57.17.28.74 1.22 1.59 1.98 1.09.97 2.01 1.27 2.29 1.42.28.14.44.12.61-.07.17-.18.71-.83.9-1.11.19-.28.38-.24.64-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.32.07.11.07.63-.17 1.31Z"/>
+                </svg>
+                WhatsApp
+              </a>
+            </li>
+          }
+        </ul>
       </div>
+
+      @if (site.email) {
+        <div class="mt-6 rounded-lg border border-line bg-paper-2 p-6">
+          <h3 class="text-xs font-semibold uppercase tracking-[0.18em] text-forest">Prefer email?</h3>
+          <a
+            [href]="'mailto:' + site.email"
+            class="mt-2 inline-block rounded-sm font-display text-lg font-medium text-forest-ink underline-offset-4 transition-colors hover:text-brass hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass"
+            >{{ site.email }}</a
+          >
+        </div>
+      }
     </div>
 
     <!-- Message form -->

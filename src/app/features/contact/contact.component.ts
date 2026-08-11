@@ -1,7 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OfficeCardComponent } from '../../shared/office-card/office-card.component';
-import { officeById, OfficeInfo, OFFICES, SITE, whatsappLink } from '../../core/site';
+import {
+  officeById,
+  officePhone,
+  OfficeInfo,
+  OFFICES,
+  PhoneLine,
+  SITE,
+  telLink,
+  whatsappLink,
+} from '../../core/site';
 
 @Component({
   selector: 'app-contact',
@@ -13,7 +22,18 @@ export class ContactComponent {
   private readonly fb = inject(FormBuilder);
 
   protected readonly site = SITE;
+  protected readonly ceo = SITE.ceo;
   protected readonly offices: readonly OfficeInfo[] = OFFICES;
+
+  /** WhatsApp chat link for one of the CEO's lines. */
+  protected ceoWaHref(line: PhoneLine): string {
+    return whatsappLink(line.whatsapp, `Hello ${this.ceo.name}, I'd like to make an enquiry.`);
+  }
+
+  /** Click-to-call link for one of the CEO's lines. */
+  protected ceoTelHref(line: PhoneLine): string {
+    return telLink(line.dial);
+  }
 
   /** True once the user has attempted to submit — gates validation messages. */
   protected readonly submitted = signal(false);
@@ -41,6 +61,6 @@ export class ContactComponent {
       `Phone: ${phone.trim() || 'not provided'}\n\n` +
       `${message}`;
 
-    window.open(whatsappLink(target.whatsapp, text), '_blank', 'noopener');
+    window.open(whatsappLink(officePhone(target).whatsapp, text), '_blank', 'noopener');
   }
 }

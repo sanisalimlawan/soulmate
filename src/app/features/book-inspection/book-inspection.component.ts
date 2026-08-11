@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { officeById, OfficeInfo, OFFICES, SITE, whatsappLink } from '../../core/site';
+import { officeById, officePhone, OfficeInfo, OFFICES, SITE, whatsappLink } from '../../core/site';
 
 @Component({
   selector: 'app-book-inspection',
@@ -71,7 +71,7 @@ export class BookInspectionComponent {
     if (v.time) lines.push(`Preferred time: ${v.time}`);
     if (v.notes.trim()) lines.push('', `Notes: ${v.notes.trim()}`);
 
-    const link = whatsappLink(target.whatsapp, lines.join('\n'));
+    const link = whatsappLink(officePhone(target).whatsapp, lines.join('\n'));
     this.lastLink.set(link);
     window.open(link, '_blank', 'noopener');
   }

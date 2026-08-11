@@ -1,29 +1,33 @@
 # Brand assets
 
-Drop the Soul Mate Properties logo in this folder.
+The Soul Mate Properties logo lives in this folder.
 
-## How to add the real logo
+## Current logo
 
-Replace the file **`logo.svg`** in this folder with the client's logo, keeping
-the **same file name** (`logo.svg`). No code changes are needed — the header,
-footer, and WhatsApp button all read from `/assets/brand/logo.svg`
-automatically.
+**`logo.jpg`** — the client-supplied circular emblem (gold buildings + roofline
+on a dark coin, with the company name). The header, footer, and any other brand
+lockup read from `/assets/brand/logo.jpg` automatically.
 
-- **Preferred format:** `.svg` (crisp at every size). A high-resolution `.png`
-  with a transparent background also works — just export it and rename it to
-  `logo.svg`… actually, if you only have a PNG, name it `logo.png` and tell the
-  developer to switch the one path in `src/app/shared/brand-logo/brand-logo.component.ts`.
-- **Shape:** icon / monogram only (square-ish). The "Soul Mate Properties"
-  wordmark is drawn next to it in the site's own font, so the file should be the
-  **mark only**, not the mark + text.
-- **Background:** transparent.
-- **Contrast:** the same file is shown on a light header (`#F1F3EE`) and a dark
-  footer (`#0F241D`). Use a mark that reads on both (the placeholder brass mark
-  does). If the real logo only works on one, ask the developer to wire a second
-  file for dark backgrounds.
+Because the artwork is a detailed emblem on a dark background, the site masks it
+into a **circular badge** (`rounded-full` + `object-cover`) so the square JPG
+corners disappear and it reads as a clean gold-ringed coin on both the light
+header (`#F1F3EE`) and the dark footer (`#0F241D`). The "Soul Mate Properties"
+wordmark is drawn beside it in the site's own font, because the emblem's own
+baked-in text is too small to read at header size.
+
+## How to replace it
+
+Drop a new file in this folder with the **same name** (`logo.jpg`) — no code
+changes needed.
+
+- If you switch to a different format (e.g. a transparent `.png` or `.svg`),
+  update the single `src` in
+  `src/app/shared/brand-logo/brand-logo.component.ts`.
+- A version with a **transparent background** (PNG/SVG) is ideal if you ever
+  want the mark without the dark coin — tell the developer and the circular
+  mask/ring can be removed in one place.
 
 ## What happens if the file is missing
 
-If `logo.svg` ever fails to load, the site automatically falls back to a clean
-"SM" monogram, so nothing ever appears broken. The current `logo.svg` is a
-placeholder mark — replace it with the real brand asset before launch.
+If `logo.jpg` ever fails to load, the site automatically falls back to a clean
+"SM" monogram, so nothing ever appears broken.

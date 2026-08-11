@@ -6,6 +6,7 @@ import {
   mapsLink,
   OfficeInfo,
   OFFICES,
+  officePhone,
   RouteLink,
   SITE,
   telLink,
@@ -31,13 +32,17 @@ export class SiteFooterComponent {
 
   protected waHref(office: OfficeInfo): string {
     return whatsappLink(
-      office.whatsapp,
+      officePhone(office).whatsapp,
       `Hello ${SITE.name} (${office.label}), I'd like to make an enquiry.`,
     );
   }
 
   protected telHref(office: OfficeInfo): string {
-    return telLink(office.phoneDial);
+    return telLink(officePhone(office).dial);
+  }
+
+  protected phoneDisplay(office: OfficeInfo): string {
+    return officePhone(office).display;
   }
 
   protected mapsHref(office: OfficeInfo): string {

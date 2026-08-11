@@ -1,0 +1,24 @@
+[1m[33mComponent HMR has been enabled, see https://angular.dev/hmr for more info.[39m[22m
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m[2m | [22m[1mNames[22m                    [2m | [22m [1mRaw size[22m
+[32mmain.js[39m            [2m | [22m[2mmain[22m                     [2m | [22m [36m98.97 kB[39m[2m | [22m
+[32mpolyfills.js[39m       [2m | [22m[2mpolyfills[22m                [2m | [22m [36m89.77 kB[39m[2m | [22m
+[32mstyles.css[39m         [2m | [22m[2mstyles[22m                   [2m | [22m [36m30.24 kB[39m[2m | [22m
+[32mchunk-I23BOE6J.js[39m  [2m | [22m[2m-[22m                        [2m | [22m  [36m2.99 kB[39m[2m | [22m
+
+[1m [22m                  [2m | [22m[1mInitial total[22m            [2m | [22m[1m221.97 kB[22m
+
+[1mLazy chunk files[22m   [2m | [22m[1mNames[22m                    [2m | [22m [1mRaw size[22m
+[32mchunk-SNOYQE4T.js[39m  [2m | [22m[2mbook-inspection-component[22m[2m | [22m [36m31.50 kB[39m[2m | [22m
+[32mchunk-TIGD3EGC.js[39m  [2m | [22m[2mabout-component[22m          [2m | [22m [36m27.03 kB[39m[2m | [22m
+[32mchunk-QGCO6N6B.js[39m  [2m | [22m[2mcontact-component[22m        [2m | [22m [36m25.57 kB[39m[2m | [22m
+[32mchunk-KGY45XVV.js[39m  [2m | [22m[2m-[22m                        [2m | [22m [36m12.20 kB[39m[2m | [22m
+[32mchunk-LHEL3VFU.js[39m  [2m | [22m[2mcoming-soon-component[22m    [2m | [22m  [36m9.55 kB[39m[2m | [22m
+[32mchunk-ITMURUFC.js[39m  [2m | [22m[2mnot-found-component[22m      [2m | [22m  [36m5.68 kB[39m[2m | [22m
+
+Application bundle generation complete. [6.368 seconds]
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m4310[22m/[39m

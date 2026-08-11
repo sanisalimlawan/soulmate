@@ -1,7 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { OfficeCardComponent } from '../../shared/office-card/office-card.component';
-import { OfficeInfo, OFFICES } from '../../core/site';
+import {
+  Contact,
+  OfficeInfo,
+  OFFICES,
+  PhoneLine,
+  SITE,
+  telLink,
+  whatsappLink,
+} from '../../core/site';
 
 interface ValueCard {
   readonly title: string;
@@ -21,6 +29,17 @@ interface Stat {
 })
 export class AboutComponent {
   protected readonly offices: readonly OfficeInfo[] = OFFICES;
+
+  /** The people behind the business — CEO first, then each branch's MD. */
+  protected readonly leaders: readonly Contact[] = [SITE.ceo, ...OFFICES.map((o) => o.manager)];
+
+  protected waHref(line: PhoneLine, name: string): string {
+    return whatsappLink(line.whatsapp, `Hello ${name}, I'd like to make an enquiry about a property.`);
+  }
+
+  protected telHref(line: PhoneLine): string {
+    return telLink(line.dial);
+  }
 
   protected readonly stats: readonly Stat[] = [
     { value: '2', label: 'Cities served — Kano & Abuja' },
