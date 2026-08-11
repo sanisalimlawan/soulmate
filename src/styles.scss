@@ -1,0 +1,15 @@
+@use './styles/tokens.scss';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--smp-paper);
+  color: var(--smp-ink);
+  font-family: var(--smp-font-body);
+}

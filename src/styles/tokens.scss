@@ -1,0 +1,26 @@
+// Soul Mate Properties — design tokens
+// Mirrors the tenant-theming pattern already used in TertiaUi: CSS custom properties,
+// so these can later be swapped for values pulled from an API/tenant config if ever needed.
+
+:root {
+  --smp-forest: #16332B;
+  --smp-forest-ink: #0F241D;
+  --smp-brass: #B98B3E;
+  --smp-brass-light: #D9AE63;
+  --smp-clay: #A85C32;
+  --smp-paper: #F1F3EE;
+  --smp-paper-2: #E8EBE2;
+  --smp-ink: #14201B;
+  --smp-ink-soft: #4A564E;
+  --smp-line: #D8DCD1;
+
+  --smp-font-display: 'Lora', serif;
+  --smp-font-body: 'Poppins', sans-serif;
+
+  --smp-radius-sm: 4px;
+  --smp-radius-md: 8px;
+  --smp-radius-lg: 14px;
+
+  --smp-max-width: 1320px;
+  --smp-gutter: 56px;
+}
