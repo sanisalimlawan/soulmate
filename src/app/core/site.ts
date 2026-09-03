@@ -54,6 +54,8 @@ export interface OfficeInfo {
   readonly area: string;
   /** Full street address on one line. */
   readonly address: string;
+  /** Office email address. */
+  readonly email: string;
   /** The branch manager, with their WhatsApp-enabled phone line(s). */
   readonly manager: Contact;
   /** Search string used for the Google Maps directions link. */
@@ -86,18 +88,16 @@ export const SITE = {
   shortName: 'Soul Mate',
   tagline: 'Homes, land & commercial property across Kano & Abuja',
   /**
-   * No e-mail address was supplied by the client. Left `null` on purpose so the
-   * site never shows a bouncing `mailto:` — the e-mail row is hidden wherever it
-   * appears until a real inbox is set here (e.g. `'info@soulmateproperties.ng'`).
+   * Mock e-mail address for development. Replace with real address before launch.
    */
-  email: null as string | null,
+  email: 'info@soulmateproperties.ng' as string | null,
   /** The CEO, reachable directly on WhatsApp / phone. */
   ceo: CEO,
 } as const;
 
 /**
  * Office directory. The Abuja address was provided by the client
- * ("Wuse Zone 2, opposite GSM Village"); the Kano street line is still a
+ * ("Wuse Zone 3, opposite GSM Village"); the Kano street line is still a
  * placeholder to confirm. Every number is a real WhatsApp-enabled line.
  */
 export const OFFICES: readonly OfficeInfo[] = [
@@ -107,6 +107,7 @@ export const OFFICES: readonly OfficeInfo[] = [
     label: 'Kano office',
     area: 'Nassarawa GRA',
     address: 'Nassarawa GRA, Kano', // PLACEHOLDER street line — confirm with client.
+    email: 'kano@soulmateproperties.ng',
     manager: {
       name: "Anwar Ahmad Na'abba",
       title: 'Managing Director — Kano branch',
@@ -118,14 +119,15 @@ export const OFFICES: readonly OfficeInfo[] = [
     id: 'abuja',
     city: 'Abuja',
     label: 'Abuja office',
-    area: 'Wuse Zone 2',
-    address: 'Wuse Zone 2, opposite GSM Village, Abuja',
+    area: 'Wuse Zone 3',
+    address: 'Wuse Zone 3, opposite GSM Village, Abuja',
+    email: 'abuja@soulmateproperties.ng',
     manager: {
       name: 'Alh. Ahmad Ibrahim',
       title: 'Managing Director — Abuja branch',
       phones: [ngPhone('08034548332'), ngPhone('08026601720')],
     },
-    mapsQuery: 'Wuse Zone 2, opposite GSM Village, Abuja, Nigeria',
+    mapsQuery: 'Wuse Zone 3, opposite GSM Village, Abuja, Nigeria',
   },
 ];
 

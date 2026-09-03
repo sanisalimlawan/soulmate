@@ -95,7 +95,7 @@ export const routes: Routes = [
         eyebrow: 'Abuja',
         title: 'Abuja listings',
         lead: 'A dedicated view of everything we have across Abuja, from Wuse to Guzape. This page is being built; our Abuja office is ready to help you right now.',
-        bullets: ['Homes, land & commercial', 'Locally inspected', 'Wuse Zone 2 office'],
+        bullets: ['Homes, land & commercial', 'Locally inspected', 'Wuse Zone 3 office'],
       } satisfies ComingSoonData,
     },
   },

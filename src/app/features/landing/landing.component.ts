@@ -69,7 +69,7 @@ export class LandingComponent {
     {
       price: '₦4,500,000/yr',
       title: '3-Bed Terrace',
-      location: 'Wuse Zone 2, Abuja',
+      location: 'Wuse Zone 3, Abuja',
       status: 'For Rent',
       meta: ['3 bed', '3 bath', 'Serviced'],
       media: 'bg-gradient-to-tr from-clay to-brass',
